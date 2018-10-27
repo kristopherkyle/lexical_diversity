@@ -1,0 +1,19 @@
+Metadata-Version: 2.1
+Name: lexical-diversity
+Version: 0.0.3
+Summary: A simple program for calcuating lexical diversity
+Home-page: https://github.com/kristopherkyle/lexical_diversity
+Author: Kristopher Kyle
+Author-email: kristopherkyle1@gmail.com
+License: UNKNOWN
+Description: # To install using pip:
+        
+            pip install lexical-diversity
+        
+        
+        
+Platform: UNKNOWN
+Classifier: Programming Language :: Python :: 3
+Classifier: License :: OSI Approved :: MIT License
+Classifier: Operating System :: OS Independent
+Description-Content-Type: text/markdown
