@@ -1,3 +1,7 @@
+# -*- coding: utf-8 -*-
+# coding: utf8
+from __future__ import division
+
 import re
 from collections import Counter
 import math
@@ -6,7 +10,7 @@ import pkg_resources
 data_filename = pkg_resources.resource_filename('lexical_diversity', 'e_lemma_lower_clean.txt')
 
 punctuation = "`` '' ' . , ? ! ) ( % / - _ -LRB- -RRB- SYM : ;".split(" ")
-lemma_file = open(data_filename).read().split("\n")
+lemma_file = open(data_filename, mode='U').read().split("\n")
 
 lemma_dict = {}
 
