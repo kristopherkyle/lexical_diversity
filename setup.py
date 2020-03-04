@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 setuptools.setup(
     name="lexical_diversity",
-    version="0.0.3",
+    version="0.1.1",
     author="Kristopher Kyle",
     author_email="kristopherkyle1@gmail.com",
     description="A simple program for calcuating lexical diversity",
