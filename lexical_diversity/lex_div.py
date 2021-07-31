@@ -2,6 +2,10 @@ import re
 from collections import Counter
 import math
 import pkg_resources
+from scipy.optimize import curve_fit
+import random
+import nltk
+import numpy as np
 
 data_filename = pkg_resources.resource_filename('lexical_diversity', 'e_lemma_lower_clean.txt')
 
@@ -218,3 +222,46 @@ def mtld_ma_wrap(text, min = 10): #Calculates moving average MTLD from left to r
 					continue
 	mtld = safe_divide(factor_lengths,factor)
 	return mtld
+
+#Introducing Voc-D and YulesK
+#Function for estimating Voc-D
+def func(n,d):
+	ttrr = (d/n) * (np.sqrt(1 + 2 * (n/d)) - 1 )
+	return ttrr
+
+def vocd(token):
+	N = [x for x in range(35,51)]
+	d_values = []
+	for _ in range(3):
+		average_ttr = []
+		for sample in range(35,51):
+			ttr_ = []
+			for _ in range(100):
+				sampleTokens=random.sample(token, sample)
+				tt = ld.ttr(sampleTokens)
+				ttr_.append(tt)
+			avg = np.mean(ttr_)
+			average_ttr.append(avg)
+		popt, _ = curve_fit(func, N, average_ttr)
+		d_values.append(popt[0])
+	return np.mean(d_values)
+
+#YulesK
+def yuleEquation(n,mMax,n_values):
+	s1 = n
+	s2 = 0
+	for m in range(1,mMax+1):
+		coun = n_values.count(m)
+		s2 = s2+np.square(m)*coun
+	nume = s2 - s1
+	deno = s1*s1
+	k = 10000 * safe_divide(nume,deno)
+	return k
+
+def yulesk(token):
+	n = len(token)
+	fdist = nltk.FreqDist(token)
+	m_max = fdist[fdist.max()]
+	n_values = list(fdist.values())
+	k = yuleEquation(n,m_max,n_values)
+	return k
