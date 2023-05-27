@@ -180,11 +180,11 @@ def mtld_ma_bid(text, min = 10): #Average of moving average MTLD when ran forwar
 		for x in range(len(text)):
 			sub_text = text[x:]
 			for y in range(len(sub_text)):
-					factor_text = sub_text[:y+1]	
-					if ttr(factor_text) < .720 and len(factor_text) >= min:
-						factor += 1
-						factor_lengths += len(factor_text)
-						break
+				factor_text = sub_text[:y+1]	
+				if ttr(factor_text) < .720 and len(factor_text) >= min:
+					factor += 1
+					factor_lengths += len(factor_text)
+					break
 		mtld = safe_divide(factor_lengths,factor)
 		return mtld
 
