@@ -179,16 +179,12 @@ def mtld_ma_bid(text, min = 10): #Average of moving average MTLD when ran forwar
 		factor_lengths = 0
 		for x in range(len(text)):
 			sub_text = text[x:]
-			breaker = 0
 			for y in range(len(sub_text)):
-				if breaker == 0:
-					factor_text = sub_text[:y+1]	
-					if ttr(factor_text) < .720 and len(factor_text) >= min:
-						factor += 1
-						factor_lengths += len(factor_text)
-						breaker = 1
-					else:
-						continue
+				factor_text = sub_text[:y+1]	
+				if ttr(factor_text) < .720 and len(factor_text) >= min:
+					factor += 1
+					factor_lengths += len(factor_text)
+					break
 		mtld = safe_divide(factor_lengths,factor)
 		return mtld
 
@@ -202,19 +198,14 @@ def mtld_ma_bid(text, min = 10): #Average of moving average MTLD when ran forwar
 def mtld_ma_wrap(text, min = 10): #Calculates moving average MTLD from left to right, but wraps to beginning of text instead of calculating partial factors
 	factor = 0
 	factor_lengths = 0
-	start = 0
 	double_text = text + text #allows wraparound
 	for x in range(len(text)):
-		breaker = 0
 		sub_text = double_text[x:]
 		for y in range(len(sub_text)):
-			if breaker == 0:
-				factor_text = sub_text[:y+1]
-				if ttr(factor_text) < .720 and len(factor_text) >= min:
-					factor += 1
-					factor_lengths += len(factor_text)
-					breaker = 1
-				else:
-					continue
+			factor_text = sub_text[:y+1]
+			if ttr(factor_text) < .720 and len(factor_text) >= min:
+				factor += 1
+				factor_lengths += len(factor_text)
+				break
 	mtld = safe_divide(factor_lengths,factor)
 	return mtld
